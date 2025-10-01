@@ -84,7 +84,9 @@ pub fn new_statvfs() -> statvfs {
         f_flag: 0,
         // Maximum filename length
         f_namemax: 0,
-        __f_spare: [0; 6usize],
+        // added?
+        f_type: 0,
+        __f_spare: [0; 5usize],
     }
 }
 
@@ -852,6 +854,7 @@ extern "C" fn create(
     }
 }
 
+#[allow(invalid_reference_casting)] // FIXME
 extern "C" fn read(
     arg1: *const ::std::os::raw::c_char,
     arg2: *mut ::std::os::raw::c_char,
@@ -1376,6 +1379,7 @@ impl Default for FuseOperations {
     fn default() -> Self {
         #[cfg(target_os = "linux")]
         return Self {
+            _bitfield_align_1: [],
             access: Some(access),
             bmap: None,
             chmod: Some(chmod),
