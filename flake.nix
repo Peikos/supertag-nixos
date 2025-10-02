@@ -33,7 +33,7 @@
               nativeBuildInputs = buildDeps;
               # Uncomment if your cargo tests require networking or otherwise
               # don't play nicely with the Nix build sandbox:
-              # doCheck = false;
+              doCheck = false;
             };
 
           mkDevShell = rustc:
@@ -50,11 +50,10 @@
             overlays = [ (import inputs.rust-overlay) ];
           };
 
-          packages.default = self'.packages.example;
+          packages.default = self'.packages.tag;
           devShells.default = self'.devShells.nightly;
 
-          packages.example = (rustPackage "supertag");
-          packages.example-base = (rustPackage "");
+          packages.tag = (rustPackage "");
 
           devShells.nightly = (mkDevShell (pkgs.rust-bin.selectLatestNightlyWith
             (toolchain: toolchain.default)));
