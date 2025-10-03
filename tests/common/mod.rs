@@ -27,9 +27,9 @@ use parking_lot::Mutex;
 #[cfg(target_os = "macos")]
 use rand::Rng;
 use rusqlite::{Connection, TransactionBehavior};
-use serde::export::Formatter;
 use std::collections::HashSet;
 use std::error::Error;
+use std::fmt::Formatter;
 use std::fs;
 use std::io::{ErrorKind, Result as IOResult};
 use std::iter::FromIterator;

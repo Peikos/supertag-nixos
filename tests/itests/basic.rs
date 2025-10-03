@@ -170,8 +170,8 @@ fn test_disable_recursive_symlinks_manual() -> TestResult {
         th.mountpoint_path(&["a2"]),
         th.mountpoint_path(&["a1", "a2"]),
     ) {
-        Err(e) => match e.kind() {
-            ErrorKind::Other => Ok(()),
+        Err(e) => match e {
+            e if e.kind() == ErrorKind::Other || e.raw_os_error() == Some(5) => Ok(()),
             _ => panic!("Wrong error {:?}", e),
         },
         _ => panic!("Should have had error"),

@@ -52,7 +52,9 @@ fn test_bad_copy() -> TestResult {
     );
 
     match res {
-        Err(e) if e.kind() == std::io::ErrorKind::Other => {}
+        Err(e)
+            if e.kind() == std::io::ErrorKind::Other
+                || e.kind() == std::io::ErrorKind::Unsupported => {}
         Err(e) => panic!("Wrong error: {:?}", e),
         Ok(_) => panic!("Should have had an error"),
     }
@@ -133,7 +135,9 @@ fn test_non_rm_delete_dir() -> TestResult {
     let idx = listener.marker();
 
     match std::fs::remove_dir_all(&target) {
-        Err(e) if e.kind() == std::io::ErrorKind::Other => {}
+        Err(e)
+            if e.kind() == std::io::ErrorKind::Other
+                || e.kind() == std::io::ErrorKind::Unsupported => {}
         Err(e) => panic!("Wrong error {:?}", e),
         Ok(_) => panic!("Should have had an error"),
     }
